@@ -55,8 +55,46 @@ void vykonajFind()
     
 }
 
-Console.WriteLine(" ahoj, som tvoj asistent a poviem ti co dokazem \n sum \n odm \n find \n help \n area \n perimeter \n diagonal " +
-                  "\n aky prikaz chces spravit?");
+void VykonajRect()
+{
+    Console.WriteLine("podme si odmerat obdlznik ");
+    Console.WriteLine("zadaj cislo prvej strany:");
+    double strana1 = int.Parse(Console.ReadLine());
+    
+    Console.WriteLine("zadaj cislo druhej strany:");
+    double strana2 = int.Parse(Console.ReadLine());
+
+    if (strana1 < strana2 || strana2 < strana1)
+        return true;
+    
+    Console.WriteLine("mame obdlznik so stranami " + strana1 + "a " + strana2 + ", co chces odmerat?");
+    Console.ReadLine();
+
+}
+
+void VykonajObsah()
+{
+    Console.WriteLine("vykonam vypocet obsahu obdlznika");
+    double vysledokObsahu = strana1 * strana2
+    Console.WriteLine("vysledok obsahu je " + vysledokObsahu);
+    Console.ReadLine();
+}
+
+void VykonajObvod()
+{ 
+    Console.WriteLine("vykonam vypocet obvodu obdlzika");
+    double vysledokObvodu = 2 * strana1 + 2 strana2
+    Console.WriteLine("vysledok obvodu je "+ vysledok );
+    Console.ReadLine();
+}
+
+void VykonajUhlopriecku()
+{
+    
+}
+
+
+Console.WriteLine(" ahoj, som tvoj asistent a aky prikaz chces spravit?");
 
 string input = Console.ReadLine();
 input = input.ToLower();
