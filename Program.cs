@@ -1,4 +1,4 @@
-﻿void vykonajScitanie()
+﻿void VykonajSum()
 {
     Console.WriteLine("rozumiem, vykonam scitanie");
     Console.WriteLine("napis prve cislo:");
@@ -14,7 +14,7 @@
     
 }
 
-void vykonajOdmocninu()
+void VykonajOdm()
 {
     Console.WriteLine("rozumiem, vypisem odmocninu");
     Console.WriteLine("napis prve cislo:");
@@ -23,11 +23,11 @@ void vykonajOdmocninu()
     
     double odmocnina = Math.Sqrt(vstup1);
    
-    Console.WriteLine("odmocnina z " + vstup1 + "je " + odmocnina);
+    Console.WriteLine("odmocnina z " + vstup1 + " je " + odmocnina);
 }
 
 
-void vykonajHelp()
+void VykonajHelp()
 {
     Console.WriteLine("povolene prikazy " +
                       "\n sum - scitanie " +
@@ -41,7 +41,7 @@ void vykonajHelp()
 }
 
 
-void vykonajFind()
+void VykonajFind()
 {
     Console.WriteLine("zadaj vetu:");
     string veta = Console.ReadLine();
@@ -51,73 +51,112 @@ void vykonajFind()
     string castVety = Console.ReadLine();
     castVety = castVety.ToLower();
 
-    int index = castVety.IndexOf(castVety);
+    int index = veta.IndexOf(castVety);
+    
+    Console.WriteLine("cast vety sa nachadza na indexe: " + index);
     
 }
 
 void VykonajRect()
 {
-    Console.WriteLine("podme si odmerat obdlznik ");
+    Console.WriteLine("podme si odmerat obdlznik :)");
     Console.WriteLine("zadaj cislo prvej strany:");
     double strana1 = int.Parse(Console.ReadLine());
-    
+
     Console.WriteLine("zadaj cislo druhej strany:");
     double strana2 = int.Parse(Console.ReadLine());
 
-    if (strana1 < strana2 || strana2 < strana1)
-        return true;
-    
-    Console.WriteLine("mame obdlznik so stranami " + strana1 + "a " + strana2 + ", co chces odmerat?");
-    Console.ReadLine();
+    if (strana1 == strana2 || strana1 <= 0 || strana2 <= 0)
+    {
+        Console.WriteLine("nespravne hodnoty");
+        return;
+    }
 
+    Console.WriteLine("mame obdlznik so stranami " + strana1 + " a " + strana2 + ", co chces odmerat?");
+    string input = Console.ReadLine();
+    input = input.ToLower();
+
+    while (input != "exit")
+    {
+        if (input == "area")
+            VykonajArea(strana1, strana2);
+        else if (input == "perimeter")
+            VykonajPerimeter(strana1, strana2);
+        else if (input == "diagonal")
+            VykonajDiagonal(strana1, strana2);
+        else
+            Console.WriteLine("nespravny prikaz pre obdlznik");
+        
+        input = Console.ReadLine();
+        input = input.ToLower();
+    }
 }
 
-void VykonajObsah()
+void VykonajArea(double strana1, double strana2)
 {
     Console.WriteLine("vykonam vypocet obsahu obdlznika");
-    double vysledokObsahu = strana1 * strana2
+    double vysledokObsahu = strana1 * strana2;
     Console.WriteLine("vysledok obsahu je " + vysledokObsahu);
-    Console.ReadLine();
 }
 
-void VykonajObvod()
+void VykonajPerimeter(double strana1, double strana2)
 { 
     Console.WriteLine("vykonam vypocet obvodu obdlzika");
-    double vysledokObvodu = 2 * strana1 + 2 strana2
-    Console.WriteLine("vysledok obvodu je "+ vysledok );
-    Console.ReadLine();
-}
+    double vysledok = 2 * strana1 + 2 * strana2;
+    Console.WriteLine("vysledok obvodu je "+ vysledok ); }
 
-void VykonajUhlopriecku()
+void VykonajDiagonal(double strana1, double strana2)
 {
-    
+    Console.WriteLine("vykonam vypocet uhlopriecky obdlzika");
+    double vysledok = Math.Sqrt(strana1 * strana1 + strana2 * strana2);
+    Console.WriteLine("vysledok uhlopriecky je "+ vysledok ); 
 }
 
+/*
+void VykonajArray()
+{
+    Console.WriteLine("zadaj cisla do array: ");
+    double strana1 = int.Parse(Console.ReadLine());
+
+    string input = Console.ReadLine();
+    input = input.ToLower();
+
+    while (input != "exit")
+    {
+        if (input == "area")
+            VykonajArea(strana1, strana2);
+        else if (input == "perimeter")
+            VykonajPerimeter(strana1, strana2);
+        else if (input == "diagonal")
+            VykonajDiagonal(strana1, strana2);
+        else
+            Console.WriteLine("nespravny prikaz pre obdlznik");
+        
+        input = Console.ReadLine();
+        input = input.ToLower();
+    }
+}
+*/
 
 Console.WriteLine(" ahoj, som tvoj asistent a aky prikaz chces spravit?");
-
 string input = Console.ReadLine();
 input = input.ToLower();
-
-while (input != "sum" && input != "odm" && input != "help" && input != "find")
-{
-    Console.WriteLine("nespravny prikaz");
-    input = Console.ReadLine();
-}
-
 
 while (input != "exit")
 {
     if (input == "sum")
-        vykonajScitanie();
-    if (input == "odm")
-        vykonajOdmocninu();
-        if (input == "help")
-            vykonajHelp();
-        if (input == "find")
-            vykonajFind();
+        VykonajSum();
+    else if (input == "odm")
+        VykonajOdm();
+    else if (input == "help")
+        VykonajHelp();
+    else if (input == "find")
+        VykonajFind();
+    else if (input == "rect")
+        VykonajRect();
+    else
+        Console.WriteLine("nespravny prikaz");
     
+    input = Console.ReadLine();
+    input = input.ToLower();
 }
-
-
-
