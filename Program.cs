@@ -2,28 +2,45 @@
 {
     Console.WriteLine("rozumiem, vykonam scitanie");
     Console.WriteLine("napis prve cislo:");
-    
-    int vstup1 = int.Parse(Console.ReadLine());
-
+    double vstup1;
+	 if (!double.TryParse(Console.ReadLine(), out vstup1))
+	 {
+	 	 Console.WriteLine("zly vstup");
+		 return;
+	 }
     Console.WriteLine("napis druhe cislo:");
-    int vstup2 = int.Parse(Console.ReadLine());
+	 double vstup2;
+	 if (!double.TryParse(Console.ReadLine(), out vstup2))
+	 {
+	 	 Console.WriteLine("zly vstup");
+		 return;
+	 }
 
-    int scitavanie = vstup1 + vstup2;
+    double scitavanie = vstup1 + vstup2;
 
-    Console.WriteLine(vstup1 + "+" + vstup2 + "=" + scitavanie);
-    
+    Console.WriteLine(vstup1 + " + " + vstup2 + " = " + scitavanie);
 }
 
 void VykonajOdm()
 {
     Console.WriteLine("rozumiem, vypisem odmocninu");
-    Console.WriteLine("napis prve cislo:");
+    Console.WriteLine("napis cislo:");
+	 double vstup;
+	 if (!double.TryParse(Console.ReadLine(), out vstup))
+	 {
+	 	 Console.WriteLine("zly vstup");
+		 return;
+	 } 
+
+	 if (vstup < 0)
+	 {
+	 	  Console.WriteLine("odmocnina zo zaporneho cisla neexistuje");
+		  return;
+	 }
     
-    int vstup1 = int.Parse(Console.ReadLine());
-    
-    double odmocnina = Math.Sqrt(vstup1);
+    double odmocnina = Math.Sqrt(vstup);
    
-    Console.WriteLine("odmocnina z " + vstup1 + " je " + odmocnina);
+    Console.WriteLine("odmocnina z " + vstup + " je " + odmocnina);
 }
 
 
@@ -32,12 +49,17 @@ void VykonajHelp()
     Console.WriteLine("povolene prikazy " +
                       "\n sum - scitanie " +
                       "\n odm - odmocnina " +
-                      "\n find - najdi podretazec vo vete " +
+                      "\n find - najde podretazec vo vete " +
                       "\n help - vypise vsetky podporovane prikazy, a povie co robia " +
                       "\n exit - ukonci cely program" +
-                      "\n area - vypocita obsah obdlznika" +
-                      "\n perimeter - vypocita obvod obdlznika" +
-                      "\n diagonal - vypocita uhlopriecku obdlznika");
+							 "\n rect - spusti mod pre ratanie obldznika" +
+                      "\n  area - vypocita obsah obdlznika" +
+                      "\n  perimeter - vypocita obvod obdlznika" +
+                      "\n  diagonal - vypocita uhlopriecku obdlznika" +
+							 "\n array - spusti mod pre pole" +
+							 "\n  find - vypise na akej pozicii sa nachadza cislo" +
+							 "\n  min - najde najmensie cislo" +
+							 "\n  sort - zoradi pole od najmensieho cisla");
 }
 
 
@@ -54,17 +76,26 @@ void VykonajFind()
     int index = veta.IndexOf(castVety);
     
     Console.WriteLine("cast vety sa nachadza na indexe: " + index);
-    
 }
 
 void VykonajRect()
 {
     Console.WriteLine("podme si odmerat obdlznik :)");
     Console.WriteLine("zadaj cislo prvej strany:");
-    double strana1 = int.Parse(Console.ReadLine());
+	 double strana1;
+	 if (!double.TryParse(Console.ReadLine(), out strana1))
+	 {
+	 	 Console.WriteLine("zly vstup");
+		 return;
+	 }
 
     Console.WriteLine("zadaj cislo druhej strany:");
-    double strana2 = int.Parse(Console.ReadLine());
+	 double strana2;
+	 if (!double.TryParse(Console.ReadLine(), out strana2))
+	 {
+	 	 Console.WriteLine("zly vstup");
+		 return;
+	 }
 
     if (strana1 == strana2 || strana1 <= 0 || strana2 <= 0)
     {
@@ -84,9 +115,12 @@ void VykonajRect()
             VykonajPerimeter(strana1, strana2);
         else if (input == "diagonal")
             VykonajDiagonal(strana1, strana2);
+		  else if (input == "help")
+		  		VykonajHelp();
         else
             Console.WriteLine("nespravny prikaz pre obdlznik");
-        
+       
+		  Console.WriteLine("zadaj prikaz:");
         input = Console.ReadLine();
         input = input.ToLower();
     }
@@ -112,33 +146,82 @@ void VykonajDiagonal(double strana1, double strana2)
     Console.WriteLine("vysledok uhlopriecky je "+ vysledok ); 
 }
 
-/*
 void VykonajArray()
 {
     Console.WriteLine("zadaj cisla do array: ");
-    double strana1 = int.Parse(Console.ReadLine());
+	 string input = Console.ReadLine();
+	 string[] arrayInput = input.Split(' ');
 
-    string input = Console.ReadLine();
-    input = input.ToLower();
+	 int[] array = new int[arrayInput.Length];
+	 for (int i = 0; i < arrayInput.Length; i++)
+	 {
+		  if (!int.TryParse(arrayInput[i], out array[i]))
+		  {
+		  		Console.WriteLine("zly vstup");
+				return;
+		  }
+	 }
+
+    Console.WriteLine("co chces robit?");
+    input = Console.ReadLine();
+	 input = input.ToLower();
 
     while (input != "exit")
     {
-        if (input == "area")
-            VykonajArea(strana1, strana2);
-        else if (input == "perimeter")
-            VykonajPerimeter(strana1, strana2);
-        else if (input == "diagonal")
-            VykonajDiagonal(strana1, strana2);
+        if (input == "find")
+            VykonajArrayFind(array);
+        else if (input == "min")
+            VykonajMin(array);
+        else if (input == "sort")
+            VykonajSort(array);
+		  else if (input == "help")
+		  		VykonajHelp();
         else
-            Console.WriteLine("nespravny prikaz pre obdlznik");
-        
+            Console.WriteLine("nespravny prikaz pre array");
+
+	  	  Console.WriteLine("zadaj prikaz:");
         input = Console.ReadLine();
         input = input.ToLower();
     }
 }
-*/
 
-Console.WriteLine(" ahoj, som tvoj asistent a aky prikaz chces spravit?");
+void VykonajArrayFind(int[] array)
+{
+	 Console.WriteLine("ake cislo chces najst?");
+	 int cislo;
+	 if (!int.TryParse(Console.ReadLine(), out cislo))
+	 {
+		  Console.WriteLine("zly vstup");
+		  return;
+	 }
+
+	 for (int i = 0; i < array.Length; i++)
+	 {
+	     if (array[i] == cislo)
+		  {
+		      Console.WriteLine("cislo " + array[i] + " je v poli na pozicii " + i);
+		  }
+	 }
+}
+
+void VykonajMin(int[] array)
+{
+   int min = array[0];
+	for (int i = 0; i < array.Length; i++)
+   {
+		  if (array[i] < min)
+		  	   min = array[i];
+	}
+   Console.WriteLine("najmensie cislo: " + min); 
+}
+
+void VykonajSort(int[] array)
+{
+	Array.Sort(array);
+   Console.WriteLine("zoradene pole: " + string.Join(" ", array)); 
+}
+
+Console.WriteLine("ahoj, som tvoj asistent a aky prikaz chces spravit?");
 string input = Console.ReadLine();
 input = input.ToLower();
 
@@ -153,10 +236,19 @@ while (input != "exit")
     else if (input == "find")
         VykonajFind();
     else if (input == "rect")
+	 {
         VykonajRect();
+		  break;
+	 }
+	 else if (input == "array")
+	 {
+	 	  VykonajArray();
+		  break;
+	 }
     else
         Console.WriteLine("nespravny prikaz");
-    
+   	
+	 Console.WriteLine("zadaj prikaz:");
     input = Console.ReadLine();
     input = input.ToLower();
 }
